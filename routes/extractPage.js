@@ -11,19 +11,22 @@ app.use(cors({origin: '*'}));
 console.log("version=1.2")
  
 var links={links:[]};
-let index=0;
+let index=0,iterate=50;
 
 getPage=(url)=>{
     return new Promise(function(resolve, reject){
-        console.log("getting Page"+url);
         axios.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36' }  })
         .then(response=>{
             resolve(response);
         })
+        .catch(error=> {
+            reject(error);
+        });
     });
 };
 
-getLinks=(url)=>{
+getAllLinks=(url)=>{
+    return new Promise(function(resolve, reject){
     getPage(url).then(response=>{
             const $ = cheerio.load(response.data);
             $("a").each(function(i, elem) {
@@ -32,31 +35,28 @@ getLinks=(url)=>{
                     links.links.push(data);
                 }
             });
-            if(index <= 50){
+            if(index <= iterate){
                 console.log(index);
                 console.log(links.links[index]);
-                getLinks(links.links[index]);
+                getAllLinks(links.links[index]).then(function(value){resolve(value)});
                 index++;
             }
             else{
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                res.send(links);
+                resolve(links.links[index]);
             }
         }).catch(err => {
             // what now?
             console.log(err);
-            if(index <= 50){
+            if(index <= iterate){
                 console.log(index);
                 console.log(links.links[index]);
-                getLinks(links.links[index]);
+                getAllLinks(links.links[index]).then(function(value){resolve(value)});
                 index++;
-            }
-            else{
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                res.send(links);
             }  
         })
+    })
     };
+
 
 
 router.get("/",function(req,res,next) {
@@ -126,16 +126,27 @@ router.get("/",function(req,res,next) {
         }
         else if(req.query.url== "https://flipkart.com/" || req.query.url== "https://www.flipkart.com/" || req.query.url== "https://www.flipkart.com" || req.query.url== "https://flipkart.com"){
             
-            let links=getLinks(req.query.url);
+            if(index<=iterate){
+                getAllLinks(req.query.url).then(()=>{
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.send(links);
+                })
+            }else{
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.send(links);
+            }
         }
         else {
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.send("not a pr/p/home  page");
         }
     })
-    .catch(error=> console.log(error));
+    .catch(error=> {
+        console.log(error)
         res.setHeader('Access-Control-Allow-Origin', '*');
-        res.send("In correct URL");
+        res.send("Incorrect URL");
+    });
+        
     });
     
     // res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
