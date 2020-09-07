@@ -1,0 +1,11 @@
+Flipkart
+
+Category pages:-  -->  https://www.flipkart.com/books/selfhelp-books/pr?sid=bks,5uw&marketplace=FLIPKART&otracker=nmenu_sub_Sports%2C%20Books%20%26%20More_0_Self-Help
+
+To get each element div : 
+#container > div > div > div > div > div:nth-child(2) > div > div[class*='_']
+
+to get title and link: 
+#container > div > div > div > div > div:nth-child(2) > div > div[class*='_'] a[title]
+
+[href*="=browse"][title]
