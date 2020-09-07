@@ -16,7 +16,7 @@ let index=0;
 getPage=(url)=>{
     return new Promise(function(resolve, reject){
         console.log("getting Page"+url);
-        axios.get(req.query.url, { headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36' }  })
+        axios.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36' }  })
         .then(response=>{
             resolve(response);
         })
