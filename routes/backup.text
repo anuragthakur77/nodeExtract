@@ -5,12 +5,12 @@ const cheerio = require('cheerio');
 //const htmlParse = require('node-html-parser');
 
 var router =express.Router();
+const app = express();
+app.use(cors({origin: '*'}));
  
 var links={links:[]};
 let index=0;
 
-const app = express();
-app.use(cors({origin: '*'}));
 
 router.get("/",function(req,res,next) {
     axios.get(req.query.url, { headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36' }  })
@@ -28,7 +28,7 @@ router.get("/",function(req,res,next) {
                         links.links.push(data);
                     }
                 });
-                if(index <= 1){
+                if(index <= 50){
                     console.log(index);
                     console.log(links.links[index]);
                     getUrls(links.links[index]);
@@ -41,7 +41,7 @@ router.get("/",function(req,res,next) {
             }).catch(err => {
                 // what now?
                 console.log(err);
-                if(index <= 1){
+                if(index <= 50){
                     console.log(index);
                     console.log(links.links[index]);
                     getUrls(links.links[index]);
