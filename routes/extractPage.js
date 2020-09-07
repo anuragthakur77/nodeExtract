@@ -7,6 +7,8 @@ const cheerio = require('cheerio');
 var router =express.Router();
 const app = express();
 app.use(cors({origin: '*'}));
+
+console.log("version=1.2")
  
 var links={links:[]};
 let index=0;
