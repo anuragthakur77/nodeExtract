@@ -2,12 +2,9 @@ var express = require('express');
 var cors =require('cors');
 const axios = require('axios');
 const cheerio = require('cheerio');
-var MongoClient = require('mongodb').MongoClient;
+//var MongoClient = require('mongodb').MongoClient;
 const fs = require('fs');
 
-
-var mongo_url = "mongodb+srv://anurag-cloud_mongodb_com:Qt6nwm5PUzrFK6m@cluster0.t9r2z.mongodb.net:27017?retryWrites=true&w=majority";
-var dbName="flipkart";
 //const htmlParse = require('node-html-parser');
 //node --max-old-space-size=4096 ./bin/www start
 
@@ -58,7 +55,6 @@ category=(link)=>{
     }
     })
 };
-
 
 getPage=(url)=>{
     return new Promise(function(resolve, reject){
@@ -189,13 +185,14 @@ router.get("/",function(req,res,next) {
                 res.setHeader('Access-Control-Allow-Origin', '*');
                     res.send(links);
             }
-        }else if(req.query.url== "https://flipkart.com/"){
+        }
+        else if(req.query.url== "https://flipkart.com/"){
                 fs.readFile('message.txt', (err, data) => { 
                     console.log(data);
                 res.setHeader('Access-Control-Allow-Origin', '*');
                 res.send(data);
                  })
-            }
+        }
         else {
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.send("not a pr/p/home  page");
@@ -208,9 +205,5 @@ router.get("/",function(req,res,next) {
     });
         
     });
-    
-    // res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
-    // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
-    // res.setHeader('Access-Control-Allow-Credentials', true); // If needed
 
 module.exports=router;

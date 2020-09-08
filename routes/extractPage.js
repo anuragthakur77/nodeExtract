@@ -2,14 +2,7 @@ var express = require('express');
 var cors =require('cors');
 const axios = require('axios');
 const cheerio = require('cheerio');
-var MongoClient = require('mongodb').MongoClient;
 const fs = require('fs');
-
-
-var mongo_url = "mongodb+srv://anurag-cloud_mongodb_com:Qt6nwm5PUzrFK6m@cluster0.t9r2z.mongodb.net:27017?retryWrites=true&w=majority";
-var dbName="flipkart";
-//const htmlParse = require('node-html-parser');
-//node --max-old-space-size=4096 ./bin/www start
 
 var router =express.Router();
 const app = express();
