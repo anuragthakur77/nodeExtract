@@ -174,7 +174,7 @@ router.get("/",function(req,res,next) {
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.send(elements);
         }
-        else if( req.query.url== "https://www.flipkart.com/" || req.query.url== "https://www.flipkart.com" || req.query.url== "https://flipkart.com"){
+        else if( req.query.url== "https://www.flipkart.com/" || req.query.url== "https://www.flipkart.com" || req.query.url== "https://flipkart.com/"){
             
             if(index<=iterate){
                 getAllLinks(req.query.url).then(()=>{
@@ -186,7 +186,7 @@ router.get("/",function(req,res,next) {
                     res.send(links);
             }
         }
-        else if(req.query.url== "https://flipkart.com/"){
+        else if(req.query.url== "https://flipkart.com"){
                 fs.readFile('message.txt', (err, data) => { 
                     console.log(data);
                 res.setHeader('Access-Control-Allow-Origin', '*');
