@@ -162,7 +162,7 @@ router.get("/",function(req,res,next) {
             });
                     var data={
                         title:$('#container > div > div._3Z5yZS.NDB7oB._12iFZG._3PG6Wd > div.ooJZfD._3FGKd2 > div.ooJZfD._2oZ8XT.col-8-12 > div:nth-child(2) > div > div:nth-child(1) > h1 > span').text(),
-                        stars:$(".hGSR34.bqXGTW").text(),
+                        stars:$(".hGSR34").text().substring(0,4),
                         rating:$("#container > div > div > div > div > div > div > div > div > div > span._38sUEc").text(),
                         price:$("#container > div > div._3Z5yZS.NDB7oB._12iFZG._3PG6Wd > div.ooJZfD._3FGKd2 > div.ooJZfD._2oZ8XT.col-8-12 > div:nth-child(2) > div > div._3iZgFn > div._2i1QSc > div > div:nth-child(1)").text(),
                         highlights:highlights,
