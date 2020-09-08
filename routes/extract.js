@@ -18,7 +18,7 @@ app.use(cors({origin: '*'}));
 console.log("version=1.2")
  
 var links={links:[],index:[]};
-let index=0,iterate=500;
+let index=0,iterate=50;
 
 category=(link)=>{
     return new Promise(function(resolve, reject){
